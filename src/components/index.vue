@@ -12,7 +12,7 @@
           <router-link class="nav-link active" aria-current="page" to="/index">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" to="/helloworld">Products</router-link>
+          <router-link class="nav-link active" aria-current="page" to="/products">Products</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/services">Services</router-link>
@@ -34,7 +34,8 @@
       </form>
     </div>
   </div>
-</nav><h1 class="Pink-highlight">Ladies Lounge Kampala Dashboard</h1>
+</nav><h1 class="Pink-highlight">Ladies Lounge</h1>
+<h1 class="Pink-highlight">kampala</h1>
 
         <!-- Add more admin functionalities here -->
 </div>  

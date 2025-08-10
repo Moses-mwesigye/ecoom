@@ -2,7 +2,7 @@
 <div>
 
     <div v-if="color" style='width: 100%; height:100px; background-color:crimson;'>
-        <h1>This is the home page</h1>
+        <h1>This is the AboutUs page</h1>
     </div>
 
     <div style='width: 100%; height:100px; background-color:green;'>

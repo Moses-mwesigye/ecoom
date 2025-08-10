@@ -21,6 +21,15 @@ const products = ref([
 const cart = ref([])
 const router = useRouter()
 
+const popupImage = ref(null)
+
+function showImagePopup(imageUrl) {
+  popupImage.value = imageUrl
+}
+function closeImagePopup() {
+  popupImage.value = null
+}
+
 function addToCart(product) {
   if (product.quantity > 0) {
     const found = cart.value.find(item => item.id === product.id)
@@ -94,8 +103,8 @@ async function submitOrder() {
               </ul>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+          <form class="d-flex ms-auto" role="search" style="margin-left:auto;">
+            <input class="form-control me-2 search-bar" type="search" placeholder="Search" aria-label="Search"/>
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
@@ -108,7 +117,7 @@ async function submitOrder() {
         <div class="product-list">
           <div v-for="product in products" :key="product.id" class="product-card">
             <template v-if="product.image">
-              <img :src="product.image" :alt="product.name" class="product-image" />
+              <img :src="product.image" :alt="product.name" class="product-image" @click="showImagePopup(product.image)" style="cursor:pointer;" />
             </template>
             <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
@@ -120,16 +129,25 @@ async function submitOrder() {
         </div>
       </div>
       
-      <div class="cart cart-fixed">
+      <div v-if="cart.length > 0" class="cart cart-fixed">
         <h2>Cart</h2>
-        <div v-if="cart.length === 0">Cart is empty.</div>
-        <ul v-else>
+        <ul>
           <li v-for="item in cart" :key="item.id">
             {{ item.name }} (x{{ item.cartQuantity }}) - UgX {{ (item.price * item.cartQuantity).toLocaleString() }}
             <button @click="removeFromCart(item)">Remove</button>
           </li>
         </ul>
-        <button v-if="cart.length > 0" @click="submitOrder">Submit Order</button>
+        <div style="margin-top:1em; font-weight:bold; color:#42b883; text-align:center;">
+          Total: UgX {{ cart.reduce((sum, item) => sum + item.price * item.cartQuantity, 0).toLocaleString() }}
+        </div>
+        <button style="margin-top:1em;" @click="submitOrder">Submit Order</button>
+      </div>
+    </div>
+    <!-- Image Popup Modal -->
+    <div v-if="popupImage" class="image-popup-overlay" @click="closeImagePopup">
+      <div class="image-popup-content" @click.stop>
+        <img :src="popupImage" alt="Product" style="max-width:90vw; max-height:80vh; border-radius:12px; box-shadow:0 2px 24px #000;" />
+        <button @click="closeImagePopup" style="margin-top:1em; background:#42b883; color:#fff; border:none; border-radius:8px; padding:0.5em 1em; cursor:pointer;">Close</button>
       </div>
     </div>
   </div>
@@ -137,8 +155,13 @@ async function submitOrder() {
 
 <style scoped>
 /* Navbar purple background and light blue text */
-.navbar {
+ .navbar {
   background: #6c2eb7 !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
 }
 .navbar .navbar-nav .nav-link,
 .navbar .navbar-brand,
@@ -166,15 +189,32 @@ async function submitOrder() {
   margin-bottom: 0.5em;
   opacity: 0.9;
 }
-.ecom-container {
+/* Responsive container: remove left padding on small screens */
+ .ecom-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2em;
-  padding-left: 280px; /* --- FIX: Add padding so fixed cart on the left doesn't overlap content */
-  background: #000000; /* --- FIX: Changed background to completely black */
+  padding: 4.5em 2em 2em 2em; /* Add top padding for fixed navbar */
+  padding-left: 280px;
+  background: #000000;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(255,255,255,0.05);
-  position: relative; /* Needed for positioning context */
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .ecom-container {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .cart-fixed {
+    position: static;
+    width: 100%;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-bottom: 2em;
+    z-index: 10;
+  }
 }
 h1 {
   color: #42b883; /* --- FIX: Changed color for dark background */
@@ -242,16 +282,16 @@ button:disabled {
   padding: 1em;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
-.cart-fixed {
+ .cart-fixed {
   position: fixed;
-  top: 50%; /* --- FIX: Docked to vertical middle */
-  left: 20px; /* --- FIX: Docked to the left side */
-  transform: translateY(-50%); /* --- FIX: Vertically align correctly */
-  width: 250px;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 180px;
   z-index: 100;
-  font-size: 0.95em;
-  background: rgba(25, 25, 25, 0.8); /* --- FIX: Made background semi-transparent */
-  backdrop-filter: blur(5px); /* Optional: Adds a nice frosted glass effect */
+  font-size: 0.90em;
+  background: rgba(25, 25, 25, 0.3);
+  backdrop-filter: blur(2px);
 }
 .cart h2 {
   text-align: center;
@@ -278,5 +318,33 @@ button:disabled {
 }
 .cart li button:hover {
   background: #ef5350;
+}
+/* Image popup styles */
+.image-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.image-popup-content {
+  background: rgba(255,255,255,0.95);
+  padding: 2em;
+  border-radius: 16px;
+  box-shadow: 0 2px 24px #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Reduce search bar width */
+.search-bar {
+  max-width: 160px;
+  min-width: 80px;
+  width: 100%;
 }
 </style>

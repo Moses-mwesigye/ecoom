@@ -13,7 +13,7 @@
           <router-link class="nav-link active" aria-current="page" to="/index">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" to="/helloworld">Products</router-link>
+          <router-link class="nav-link active" aria-current="page" to="/products">Products</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/services">Services</router-link>
@@ -29,7 +29,7 @@
         </li>
         
       </ul>
-      <form class="d-flex" role="search">
+      <form class="d-flex ms-auto" role="search" style="margin-left:auto;">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
@@ -95,6 +95,7 @@
 /* Navbar purple background */
 .navbar {
   background: #6c2eb7 !important;
+  z-index: 1050;
 }
 .navbar .navbar-nav .nav-link,
 .navbar .navbar-brand,
@@ -105,6 +106,7 @@
 }
 .navbar .dropdown-menu {
   background: #6c2eb7;
+  z-index: 1100;
 }
 .navbar .dropdown-item {
   color: #39ff14 !important;
@@ -123,6 +125,9 @@ h1 {
   background: #dc143c;
   color: #fff;
   border: 1px solid #b0102a;
+  max-width: 160px;
+  min-width: 80px;
+  width: 100%;
 }
 .navbar .form-control[type="search"]::placeholder {
   color: #fff;

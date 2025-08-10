@@ -1,6 +1,12 @@
 <template>
   <div class="payments-container">
     <h1>Order Payment</h1>
+    <div v-if="order && order._id" class="order-id-section" style="margin-bottom:1em;">
+      <label style="font-weight:bold; color:#42b883;">
+        <input type="checkbox" checked disabled style="margin-right:0.5em;" />
+        Order Number: {{ order._id }} (Submitted)
+      </label>
+    </div>
     <table v-if="order && order.items && order.items.length" class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -22,6 +28,7 @@
     <div v-else>
       <p>No order data found.</p>
     </div>
+    <button class="btn btn-success checkout-btn" style="margin-top:2em;" disabled>Checkout</button>
   </div>
 </template>
 
@@ -64,5 +71,16 @@ th, td {
   text-align: center;
   background: #42a5f5;
   color: white;
+}
+.checkout-btn {
+  width: 180px;
+  font-size: 1.1em;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.order-id-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 </style>
