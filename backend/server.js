@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB with error handling
-mongoose.connect('mongodb://localhost:27017/ecommerce', {
+mongoose.connect('mongodb+srv://mwesigyedev:ecommerce256@cluster0.ki1soow.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
