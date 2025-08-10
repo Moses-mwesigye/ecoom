@@ -11,23 +11,21 @@
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/Admin">Home</a>
+          <router-link class="nav-link active" aria-current="page" to="/index">Home</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="helloworld">products</a>
+          <router-link class="nav-link active" aria-current="page" to="/helloworld">Products</router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/services">services</a>
+          <router-link class="nav-link" to="/services">Services</router-link>
         </li>
         <li class="nav-item dropdown">
-            
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            customer care
+            Customer Care
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/">AboutUs</a></li>
-            <li><a class="dropdown-item" href="#">contacts</a></li>
-            
+            <li><router-link class="dropdown-item" to="/AboutUs">AboutUs</router-link></li>
+            <li><a class="dropdown-item" href="#">Contacts</a></li>
           </ul>
         </li>
         

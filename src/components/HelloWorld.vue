@@ -8,7 +8,7 @@ const products = ref([
   { id: 1, name: 'sanitaryPads', price: 80000, description: 'GirlsSecret', category: 'females', image: 'https://th.bing.com/th/id/OIP.JFCcClZCcaN90kXhAheNbAHaHa?pid=ImgDet&rs=1', quantity: 5 },
   { id: 2, name: 'knickers', price: 10000, description: 'Girls comfort', category: 'females', image: 'https://thfvnext.bing.com/th/id/OIP.fn3bXKn5mXQRaG4XKFdzrQAAAA?w=156&h=202&c=7&r=0&o=7&cb=thfvnext&pid=1.7&rm=3', quantity: 10 },
   { id: 3, name: 'Bras', price: 15000, description: 'Girls secret', category: 'females', image: 'https://thfvnext.bing.com/th?id=OIF.zuKpX58K4kct0PmEbC%2bn1g&w=224&h=220&c=7&r=0&o=7&cb=thfvnext&pid=1.7&rm=3', quantity: 15 },
-  { id: 4, name: 'Scarfs', price: 10000, description: 'beauty', category: 'females', image:'', quantity: 50 }
+  { id: 4, name: 'Scarfs', price: 10000, description: 'beauty', category: 'females', image:'', quantity: 50 },
   { id: 5, name: 'ladies watches', price: 25000, description: 'style', category: 'females', image: 'https://ts3.mm.bing.net/th?id=OIP.YdDx1unehUN2_vFhtjoT1wHaHa&pid=15.1', quantity: 25 },
   { id: 6, name: 'EarRings', price: 10000, description: 'impression', category: 'females', image: 'https://thfvnext.bing.com/th?q=Emerald+Earrings&w=120&h=120&c=1&rs=1&qlt=90&cb=1&pid=InlineBlock&mkt=en-WW&cc=UG&setlang=en&adlt=moderate&t=1&mw=247', quantity: 30 },
   { id: 7, name: 'Towels', price: 35000, description: 'cleanliness', category: 'females', image: 'https://thfvnext.bing.com/th/id/OIP.2i7hsJY3zMDMjjfuia97UgHaHa?w=196&h=196&c=7&r=0&o=7&cb=thfvnext&pid=1.7&rm=3', quantity: 35 },
@@ -76,21 +76,21 @@ async function submitOrder() {
         <div class="collapse navbar-collapse" id="navbarScroll">
           <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/Admin">Home</a>
+              <router-link class="nav-link active" aria-current="page" to="/index">Home</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="helloworld">products</a>
+              <router-link class="nav-link active" aria-current="page" to="/helloworld">Products</router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/services">services</a>
+              <router-link class="nav-link" to="/services">Services</router-link>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                customer care
+                Customer Care
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/">AboutUs</a></li>
-                <li><a class="dropdown-item" href="#">contacts</a></li>
+                <li><router-link class="dropdown-item" to="/AboutUs">AboutUs</router-link></li>
+                <li><a class="dropdown-item" href="#">Contacts</a></li>
               </ul>
             </li>
           </ul>
