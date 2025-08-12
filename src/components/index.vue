@@ -1,44 +1,17 @@
 <template>
   <div class="admin-bg">
-    <nav class="navbar navbar-expand-lg bg-dark bg-body-tertiary">
-  <div class="container-fluid">
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" to="/index">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" to="/products">Products</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/services">Services</router-link>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Customer Care
-          </a>
-          <ul class="dropdown-menu">
-            <li><router-link class="dropdown-item" to="/AboutUs">AboutUs</router-link></li>
-            <li><a class="dropdown-item" href="#">Contacts</a></li>
-          </ul>
-        </li>
-        
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+    <div class="gradient-overlay"></div>
+  <!-- Only the beautiful dashboard card and background retained -->
+    <div class="glass-card">
+      <h1 class="dashboard-title">Ladies Lounge Kampala Dashboard</h1>
+      <p class="dashboard-desc">Welcome to your admin dashboard. Manage products, services, and customer care with style!</p>
+      <div class="dashboard-actions">
+        <router-link to="/products" class="action-btn">Shop</router-link>
+        <router-link to="/services" class="action-btn">View Services</router-link>
+        <router-link to="/AboutUs" class="action-btn">Customer Care</router-link>
+      </div>
     </div>
   </div>
-</nav><h1 class="Pink-highlight">Ladies Lounge</h1>
-<h1 class="Pink-highlight">kampala</h1>
-
-        <!-- Add more admin functionalities here -->
-</div>  
 </template>
 
 <script>
@@ -80,12 +53,81 @@
   background: #e65100;
   color: #fff;
 }
+/* Beautiful background with gradient overlay */
 .admin-bg {
   min-height: 100vh;
   width: 100vw;
-  background: url('https://www.whereandwhen.net/site/images/illustration/kampala_19.jpg') no-repeat center center fixed;
+  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
   background-size: cover;
   position: relative;
+  font-family: 'Segoe UI', 'Montserrat', Arial, sans-serif;
+}
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(120deg, rgba(108,46,183,0.7) 0%, rgba(66,184,131,0.5) 100%);
+  z-index: 1;
+}
+.glass-card {
+  position: relative;
+  z-index: 2;
+  max-width: 500px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.18);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 2.5em 2em 2em 2em;
+  text-align: center;
+}
+.dashboard-title {
+  font-size: 2.7em;
+  font-weight: 800;
+  color: #6c2eb7;
+  margin-bottom: 0.5em;
+  letter-spacing: 1px;
+  animation: fadeInDown 1s;
+}
+.dashboard-desc {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 2em;
+  font-weight: 500;
+  animation: fadeIn 1.5s;
+}
+.dashboard-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+}
+.action-btn {
+  background: linear-gradient(90deg, #6c2eb7 0%, #42b883 100%);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.8em 2em;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(108,46,183,0.15);
+  transition: background 0.3s, transform 0.2s;
+  font-size: 1.1em;
+}
+.action-btn:hover {
+  background: linear-gradient(90deg, #42b883 0%, #6c2eb7 100%);
+  transform: translateY(-3px) scale(1.04);
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 .blue-highlight {
   color: #1976d2;

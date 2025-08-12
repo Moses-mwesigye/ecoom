@@ -1,8 +1,8 @@
 const express = require('express'); // must
 const app = express(); // must
 const mongoose = require('mongoose'); // Database // must
-const productsRoutes = require('./backend/routes/products');
-const adminRoutes = require('./backend/routes/admin');
+const productsRoutes = require('./routes/products');
+const adminRoutes = require('./routes/admin');
 require('dotenv').config(); // must
 
 app.use(express.json()); // for JSON body parsing
@@ -18,7 +18,7 @@ app.use('/products', productsRoutes);
 app.use('/backecom', adminRoutes);
 
 // --- Order model and submit order route ---
-const Order = require('./backend/models/order');
+const Order = require('./models/order');
 
 app.post('/products/submit-order', async (req, res) => {
   try {

@@ -10,7 +10,6 @@ import bodysection from './components/bodysection.vue'
 import index from './components/index.vue'
 import services from './components/services.vue'
 import AboutUs from './components/aboutus.vue'
-import Payments from './components/Payments.vue'
 
 
 const routes = [
@@ -20,8 +19,7 @@ const routes = [
   { path: '/bodysection', component: bodysection },
   { path: '/index', component: index },
   { path: '/services', component: services },
-  { path: '/AboutUs', component: AboutUs },
-  { path: '/payments', component: Payments }
+  { path: '/AboutUs', component: AboutUs }
 ]
 
 const router = createRouter({
