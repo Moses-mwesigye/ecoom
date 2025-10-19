@@ -201,12 +201,12 @@ async function submitOrder() {
 }
 /* Responsive container: remove left padding on small screens */
  .ecom-container {
-  max-width: 1200px;
+  width: 100vw;
   margin: 0;
-  padding: 4.5em 0 2em 0; /* Remove left/right padding */
+  padding: 4.5em 0 2em 0;
   background: #000000;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(255,255,255,0.05);
+  border-radius: 0;
+  box-shadow: none;
   position: relative;
 }
 
