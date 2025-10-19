@@ -49,15 +49,15 @@ app.get('/', (req, res) => {
 
 
 // Connect to MongoDB with error handling
+const PORT = process.env.PORT || 4000;
 mongoose.connect('mongodb+srv://moses:3668nipple@cluster0.sfuivwu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
   .then(() => {
     console.log('Connected to MongoDB');
-    const PORT = process.env.PORT || 4000;
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`Express server running on port ${PORT}`);
     });
   })
   .catch((err) => {
@@ -121,13 +121,20 @@ app.post('/orders/:id/upload-payment', upload.single('screenshot'), async (req, 
   }
 });
 
-// Get order by ID
-app.get('/products/orders/:id', async (req, res) => {
+
+// Endpoint to list all files in uploads folder
+app.get('/admin/uploads', async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
-    if (!order) return res.status(404).json({ error: 'Order not found.' });
-    res.json(order);
+    const files = await fs.promises.readdir(uploadsDir);
+    // Build HTML table of file links
+    let html = `<h1>Uploaded Files</h1><table border="1" cellpadding="8"><tr><th>Filename</th><th>Preview</th><th>Link</th></tr>`;
+    for (const file of files) {
+      const url = `/uploads/${file}`;
+      html += `<tr><td>${file}</td><td><img src="${url}" style="max-width:120px;max-height:80px;border-radius:6px;" /></td><td><a href="${url}" target="_blank">View</a></td></tr>`;
+    }
+    html += `</table>`;
+    res.send(html);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch order.' });
+    res.status(500).send('Failed to list uploads.');
   }
 });
