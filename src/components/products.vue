@@ -202,9 +202,10 @@ async function submitOrder() {
 /* Responsive container: remove left padding on small screens */
  .ecom-container {
   width: 100vw;
+  min-width: 100vw;
   margin: 0;
   padding: 4.5em 0 2em 0;
-  background: #000000;
+  background: #000;
   border-radius: 0;
   box-shadow: none;
   position: relative;
@@ -212,8 +213,11 @@ async function submitOrder() {
 
 @media (max-width: 900px) {
   .ecom-container {
-    padding-left: 1em;
-    padding-right: 1em;
+    width: 100vw;
+    min-width: 100vw;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
   }
   .cart-fixed {
     position: static;
@@ -223,6 +227,11 @@ async function submitOrder() {
     transform: none;
     margin-bottom: 2em;
     z-index: 10;
+  }
+  .product-list {
+    grid-template-columns: 1fr;
+    gap: 1em;
+    padding: 0 0.5em;
   }
 }
 h1 {
@@ -246,15 +255,17 @@ h2 {
 .product-card {
   border-radius: 12px;
   padding: 1.2em;
-  width: 220px;
+  width: 100%;
+  max-width: 320px;
   box-shadow: 0 2px 12px rgba(255,255,255,0.10);
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: transparent; /* --- FIX: Removed the white background */
-  border: 1px solid #333; /* --- FIX: Adjusted border for dark theme */
+  background: #111; /* Solid dark background for full coverage */
+  border: 1px solid #333;
   transition: transform 0.2s, box-shadow 0.2s;
   text-align: center;
+  margin: 0 auto;
 }
 .product-card h3,
 .product-card p {
