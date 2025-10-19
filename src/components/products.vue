@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const products = ref([
@@ -23,6 +24,18 @@ const router = useRouter()
 
 const popupImage = ref(null)
 const phone = ref('')
+
+const searchQuery = ref('')
+
+const filteredProducts = computed(() => {
+  if (!searchQuery.value.trim()) return products.value;
+  const q = searchQuery.value.trim().toLowerCase();
+  return products.value.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.description.toLowerCase().includes(q) ||
+    p.category.toLowerCase().includes(q)
+  );
+});
 
 function showImagePopup(imageUrl) {
   popupImage.value = imageUrl
@@ -109,9 +122,15 @@ async function submitOrder() {
               </ul>
             </li>
           </ul>
-          <form class="d-flex ms-auto" role="search" style="margin-left:auto;">
-            <input class="form-control me-2 search-bar" type="search" placeholder="Search" aria-label="Search"/>
-            <button class="btn btn-outline-success" type="submit">Search</button>
+          <form class="d-flex ms-auto" role="search" style="margin-left:auto;" @submit.prevent>
+            <input
+              class="form-control me-2 search-bar"
+              type="search"
+              placeholder="Search products..."
+              aria-label="Search"
+              v-model="searchQuery"
+              autocomplete="off"
+            />
           </form>
         </div>
       </div>
@@ -121,7 +140,7 @@ async function submitOrder() {
       <div class="products">
         <h2>Free Delivery Around Kampala</h2>
         <div class="product-list">
-          <div v-for="product in products" :key="product.id" class="product-card">
+          <div v-for="product in filteredProducts" :key="product.id" class="product-card">
             <template v-if="product.image">
               <img :src="product.image" :alt="product.name" class="product-image" @click="showImagePopup(product.image)" style="cursor:pointer;" />
             </template>
