@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import { createRouter, createWebHistory } from 'vue-router'
 import products from './components/products.vue'
+import Payments from './components/Payments.vue'
+import UploadPayment from './components/UploadPayment.vue'
 import headersection from './components/headersection.vue'
 import bodysection from './components/bodysection.vue'
 import index from './components/index.vue'
@@ -18,6 +20,8 @@ const routes = [
   { path: '/headsection', component: headersection },
   { path: '/bodysection', component: bodysection },
   { path: '/index', component: index },
+  { path: '/payments', component: Payments },
+  { path: '/upload-payment', component: UploadPayment },
   { path: '/services', component: services },
   { path: '/AboutUs', component: AboutUs }
 ]

@@ -6,6 +6,9 @@
         <input type="checkbox" checked disabled style="margin-right:0.5em;" />
         Order Number: {{ order._id }} (Submitted)
       </label>
+      <div style="margin-left:1em; color:#333;">
+        <strong>Phone:</strong> {{ order.phone || 'Not provided' }}
+      </div>
     </div>
     <table v-if="order && order.items && order.items.length" class="table table-bordered table-striped">
       <thead>
@@ -28,7 +31,7 @@
     <div v-else>
       <p>No order data found.</p>
     </div>
-    <button class="btn btn-success checkout-btn" style="margin-top:2em;" disabled>Checkout</button>
+    <button class="btn btn-success checkout-btn" style="margin-top:2em;" @click="goToUpload">Checkout</button>
   </div>
 </template>
 
@@ -51,6 +54,18 @@ onMounted(async () => {
     }
   }
 });
+
+function goToUpload() {
+  if (order.value && order.value._id) {
+    // include phone in the query so UploadPayment can prefill
+    const phoneParam = order.value.phone ? `&phone=${encodeURIComponent(order.value.phone)}` : '';
+    const url = `/upload-payment?orderId=${order.value._id}${phoneParam}`;
+    // navigate within the SPA
+    window.location.href = url;
+  } else {
+    alert('No order to pay for.');
+  }
+}
 </script>
 
 <style scoped>

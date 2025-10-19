@@ -22,6 +22,7 @@ const cart = ref([])
 const router = useRouter()
 
 const popupImage = ref(null)
+const phone = ref('')
 
 function showImagePopup(imageUrl) {
   popupImage.value = imageUrl
@@ -55,11 +56,16 @@ function removeFromCart(product) {
 
 async function submitOrder() {
   if (cart.value.length === 0) return;
+  if (!phone.value || phone.value.trim().length < 7) {
+    alert('Please enter a valid phone number in the cart before submitting.');
+    return;
+  }
   try {
+    const total = cart.value.reduce((sum, item) => sum + item.price * item.cartQuantity, 0);
     const res = await fetch('http://localhost:4000/products/submit-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: cart.value })
+      body: JSON.stringify({ items: cart.value, phone: phone.value, total })
     });
     if (!res.ok) throw new Error('Order submission failed on the server.');
     const order = await res.json();
@@ -140,6 +146,10 @@ async function submitOrder() {
         <div style="margin-top:1em; font-weight:bold; color:#42b883; text-align:center;">
           Total: UgX {{ cart.reduce((sum, item) => sum + item.price * item.cartQuantity, 0).toLocaleString() }}
         </div>
+          <div style="margin-top:0.8em; text-align:center;">
+            <label style="font-weight:bold; color:#fff; display:block; margin-bottom:0.4em;">Phone number (required for orders)</label>
+            <input v-model="phone" type="tel" placeholder="e.g. +256772123456" style="width:100%; padding:0.4em; border-radius:6px; border:1px solid #333;" />
+          </div>
         <button style="margin-top:1em;" @click="submitOrder">Submit Order</button>
       </div>
     </div>
