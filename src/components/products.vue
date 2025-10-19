@@ -323,8 +323,8 @@ button:disabled {
  .cart-fixed {
   position: fixed;
   top: 50%;
-  right: 0;
-  left: auto;
+  left: 0;
+  right: auto;
   transform: translateY(-50%);
   width: 180px;
   z-index: 100;
