@@ -202,9 +202,8 @@ async function submitOrder() {
 /* Responsive container: remove left padding on small screens */
  .ecom-container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 4.5em 2em 2em 2em; /* Add top padding for fixed navbar */
-  padding-left: 280px;
+  margin: 0;
+  padding: 4.5em 0 2em 0; /* Remove left/right padding */
   background: #000000;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(255,255,255,0.05);
@@ -240,10 +239,9 @@ h2 {
   margin-bottom: 2em;
 }
 .product-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5em;
-  justify-content: center;
 }
 .product-card {
   border-radius: 12px;
@@ -295,7 +293,8 @@ button:disabled {
  .cart-fixed {
   position: fixed;
   top: 50%;
-  left: 20px;
+  right: 0;
+  left: auto;
   transform: translateY(-50%);
   width: 180px;
   z-index: 100;
