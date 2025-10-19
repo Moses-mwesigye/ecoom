@@ -123,6 +123,17 @@ app.post('/orders/:id/upload-payment', upload.single('screenshot'), async (req, 
 
 
 // Endpoint to list all files in uploads folder
+// Endpoint to get a specific order by ID for payments page
+app.get('/products/orders/:orderId', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.orderId);
+    if (!order) return res.status(404).json({ error: 'Order not found.' });
+    res.json(order);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch order.' });
+  }
+});
+
 app.get('/admin/uploads', async (req, res) => {
   try {
     const files = await fs.promises.readdir(uploadsDir);
